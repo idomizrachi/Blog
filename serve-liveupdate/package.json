@@ -1,0 +1,12 @@
+{
+    "name": "live-server-update",
+    "dependencies": {
+        "live-server": "1.2.2"
+    },
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    }
+
+
+}
