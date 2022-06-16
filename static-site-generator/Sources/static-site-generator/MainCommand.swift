@@ -17,7 +17,8 @@ struct MainCommand: ParsableCommand {
         markdownFilesPath = "/Users/idomizrachi/dev/personal/Blog/content"
         // Temporary
         printWelcomeMessage()
-        parseMarkdownFiles()
+        let markdownFiles = searchMarkdownFiles()
+        parseMarkdownFiles(markdownFiles: markdownFiles)
     }
     
     func printWelcomeMessage() {
@@ -26,9 +27,8 @@ struct MainCommand: ParsableCommand {
         print("Output path: \(outputPath)")
     }
     
-    func parseMarkdownFiles() {        
+    func parseMarkdownFiles(markdownFiles: [String]) {
         var allTags: Set<String> = Set()
-        let markdownFiles = searchMarkdownFiles()
         print("Found the following markdown files:\n\(markdownFiles.joined(separator: "\n"))")
         markdownFiles.forEach { markdownFile in
             print("Parsing \(markdownFile)")

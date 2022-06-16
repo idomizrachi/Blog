@@ -19,11 +19,8 @@ struct MarkdownToHtmlGen: MarkupWalker {
     
     var metadata = Metadata()
     var html: String = ""
-//    var title: String = ""
-//    var tags: [String] = []
-//    var date: String = ""
     
-    var isParsingMetadata: Bool = true  // Metadata ends at the first --- element
+    var isParsingMetadata: Bool = true  // Metadata ends at the first ThematicBreak element, text is: ---
     
     
     /**
@@ -52,6 +49,9 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitBlockQuote(_ blockQuote: BlockQuote) {
         print("block quote:\n\(blockQuote.format())")
+        html.append("""
+        <blockquote class="blockquote"><p>\(blockQuote.format())</p></blockquote>
+        """)
     }
 
     /**
@@ -62,6 +62,11 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitCodeBlock(_ codeBlock: CodeBlock) {
         print("code block:\n\(codeBlock.code)")
+        html.append("""
+        <pre><code class="language-swift highlighter-rouge">
+        \(codeBlock.code)
+        </code></pre>
+        """)
         
     }
 
@@ -73,6 +78,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitCustomBlock(_ customBlock: CustomBlock) {
         print("custom block:\n\(customBlock.format())")
+        assertionFailure("Missing implementation")
     }
 
     /**
@@ -93,7 +99,10 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitHeading(_ heading: Heading) {
         print("heading:\n\(heading.plainText)")
-        
+        let level = heading.level
+        html.append("""
+        <h\(level)>\(heading.plainText)</h\(level)>
+        """)
     }
 
     /**
@@ -160,7 +169,9 @@ struct MarkdownToHtmlGen: MarkupWalker {
         if isParsingMetadata {
             parseMetadataFields(paragraph: paragraph)
         } else {
-            
+            html.append("""
+            <p>\(paragraph.plainText)</p>
+            """)
         }
         print("paragraph:\n\(paragraph.plainText)")
     }
@@ -185,6 +196,9 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitInlineCode(_ inlineCode: InlineCode) {
         print("inline code:\n\(inlineCode.plainText)")
+        html.append("""
+        <pre><code class="language-swift highlighter-rouge">\(inlineCode.plainText)</code></pre>
+        """)
     }
 
     /**

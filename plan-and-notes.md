@@ -15,6 +15,7 @@ Modify iOS IPA and resign, for example:
 - Update app icon?
 - Update image assets
 
+
 Show resign script - signing certificate + provision profile
 
 
@@ -28,3 +29,5 @@ https://www.vadimbulavin.com/
 
 https://www.swiftbysundell.com/
 
+This layout is nice - resize the window to review also mobile layout
+https://getstream.io/blog/seeding-core-data-json/

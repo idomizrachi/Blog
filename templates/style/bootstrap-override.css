@@ -1,0 +1,11 @@
+body {
+    background-color: var(--bs-dark);
+    color: var(--bs-light);
+}
+
+tr {
+    color: var(--bs-light);
+}
+td {
+    color: var(--bs-light);
+}
