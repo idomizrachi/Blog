@@ -8,15 +8,23 @@ date: 2022-06-14
 
 ---
 
-Remarks
--------
-Audiance: iOS developers - mid to senior level
+### Remarks
+
+---
+
+*111Audiance*: iOS developers - mid to senior level
 What is the problem/pain:
     Changes in code are fragile
-What do I want to share:
+**What do I want to share:**
     Unit tests takes some time to set up and get use to
     but when it works it saves time and prevents bugs
     We need to be able to move fast
+
+XXX<br><br>
+
+
+
+XXX
 
 What we can't do/won't do:
 We can not perform full ma regression testing on every feature

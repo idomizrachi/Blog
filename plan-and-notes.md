@@ -18,8 +18,11 @@ Modify iOS IPA and resign, for example:
 
 Show resign script - signing certificate + provision profile
 
-
-
+Xcode Debug key-binding
+  Step over - CMD+SHIFT+A
+  Step into - CMD+SHIFT+S
+  Step out -  CMD+SHIFT+D
+Delete line - CMD+G
 
 
 
@@ -31,3 +34,24 @@ https://www.swiftbysundell.com/
 
 This layout is nice - resize the window to review also mobile layout
 https://getstream.io/blog/seeding-core-data-json/
+
+Main page has too much content, no just a summary of the posts
+https://www.swiftbysundell.com/
+
+Nice color selection
+sections: Articles, Tags - nice
+I think about having also About
+https://sarunw.com/posts/swiftui-menu-bar-app/
+
+Main
+10 posts per page
+Bottom navigation - previous / next
+https://swiftwithmajid.com/
+
+
+
+
+
+
+https://www.cssscript.com/demo/dark-mode-switcher-bootstrap-5
+https://www.cssscript.com/demo/dark-mode-switcher-bootstrap-5/switch.js

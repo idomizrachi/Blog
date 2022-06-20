@@ -20,7 +20,7 @@
     <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
         <div class="col-md-6 px-0">
             <div class="row">
-                <div class="col-md-3"><img src="images/ido-circle-3.png" width="150"/></div>
+                <div class="col-md-3"><img src="images/ido-circle-4.png" width="150"/></div>
                 <div class="col">
                     <div class="row">
                         <h1 class="display-4 fst-italic">Ido Mizrachi TTT</h1>
@@ -209,6 +209,108 @@ struct Hello {
                 <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
             </article>
 
+            <article class="blog-post">
+                <h3>Remarks</h3>
+                <hr>
+                <p>
+                    111Audiance: iOS developers - mid to senior level<br>What is the problem/pain:<br>Changes in code are fragile<br><p class="fw-bold">What do I want to share:</p>
+                <br>Unit tests takes some time to set up and get use to<br>but when it works it saves time and prevents bugs<br>We need to be able to move fast</p>
+                <p>
+                    XXX<br><br></p>
+                <p>
+                    XXX</p>
+                <p>
+                    What we can’t do/won’t do:<br>We can not perform full ma regression testing on every feature</p>
+                <p>
+                    Unit tests should run fast and test a small part of logic</p>
+                <p>
+                    Meet our hero….<br>oh no…<br>conflict - changes are pain</p>
+                <p>
+                    what can he do?<br>X to the rescue</p>
+                <p>
+                    What did we achived - no more fear of changes</p>
+                <p>
+                    https://giphy.com/gifs/fail-pyramid-collapse-PtuayrkI1dKYo</p>
+                <h2>Content</h2>
+                <p>
+                    Thursday night, the phone rings someone asks for a small changes in the app<br>that should only take few minutes.<br>I do it….<br>release</p>
+                <p>
+                    and …. crisis</p>
+                <p>
+                    luckliy we have unit tests</p>
+                <p>
+                    in the end - i drank my cup of wine</p>
+                <h1>Apples and Butterflies</h1>
+                <p>
+                    Our story begin on Friday night.</p>
+                <p>
+                    Me and my wife got ready for a fun movie night, the pizza was hot and the wine was cold.</p>
+                <figure class="video_container">
+                    <video alt="Hungry Date Night GIF by Paperless Post" src="https://media4.giphy.com/media/ZDEDeQMqjm5oOygzgb/giphy.mp4?cid=790b761150ff00760f21ffd804d0f0d369112ab1eafa031e&amp;rid=giphy.mp4&amp;ct=g" poster="https://media4.giphy.com/media/ZDEDeQMqjm5oOygzgb/giphy_s.gif?cid=790b761150ff00760f21ffd804d0f0d369112ab1eafa031e&amp;rid=giphy_s.gif&amp;ct=g" autoplay="" loop="" playsinline="" style="width: 500px; height: 500px; left: 0px; top: 0px;"></video>
+                </figure>
+
+                <p>
+                    and then <p class="fw-bold">the phone rang</p>
+                .</p>
+                <blockquote class="blockquote"><p>
+
+                    > Hey Ido, we need this very very very small fix in the mobile app for like tomorrow morning.
+                    > can you make it please, be our savior, the customer really really really need this fix…</p></blockquote><p>
+                <img src="https://media.giphy.com/media/V3TtZ4IWyVZgk/giphy.gif" alt="Puss in boots"></p>
+                <blockquote class="blockquote"><p>
+
+                    > Well, ok I answered, I will do it right away.</p></blockquote><p>
+                I sat down by the laptop, “This doesn’t sound too complicated”, I thought to myself.</p>
+                <p>
+                    <img src="https://i.ytimg.com/vi/MXcMV-d_2Js/maxresdefault.jpg" alt="One Hour Later"></p>
+                <p>
+                    The issue was done, quick sanity check and release, right?</p>
+                <p>
+                <p class="fw-bold">It was a very short article if it was right</p>
+                </p>
+                <p>
+                    3 Hours later the phone rang again to find out that this very very very small fix caused a big issue in some area I would have never think it could effect, but it did.</p>
+                <p>
+                    If only there was some way to guard us from these kind of events?<br>There is…. and luckily this story is fictional, and in my daily routine I write and run Unit Tests & Automation Tests a lot.</p>
+                <p>
+                    For now lets focus on Unit Tests.</p>
+                <pre><code class="language-swift highlighter-rouge">
+[09:35:14]: ▸ Test Succeeded
++--------------------+------+
+|       Test Results        |
++--------------------+------+
+| Number of tests    | 5794 |
+| Number of failures | 0    |
++--------------------+------+
+
+</code></pre><p>
+                Yes, 5794 (at the time writing this article)</p>
+                <h2>Unit Tests, for a mobile app? Seriously, I can just test it manually in 5 minutes</h2>
+                <p>
+                    This might be true if the mobile app is small, but as the app gets bigger in code base and features a complete manual testing cycle can take several days.</p>
+                <p>
+                    It seems to me that unit tests for mobile app are not a consensus yet.</p>
+                <p>
+                    Assuming most of us already working on existing app or code base, the first challenge is adding unit tests for the first time.</p>
+                <p>
+                    Unit tests has some prerequisites that takes time to implement, but it doesn’t mean that the case should be <p class="fw-bold">all</p>
+                or <p class="fw-bold">none</p>
+                .</p>
+                <p>
+                    Some of the existing code might not built for testing, and changing it might be a little tricky.<br>The main pattern I use to allow components to be tested is Dependency Injection.</p>
+                <h2>But writing tests takes time</h2>
+                <p>
+                    Yes, it is true.<br>Writing tests takes time, sometimes it can even take longer than the time it took to write the code it is testing.<br>But it is a time well invested in the future of the code base.</p>
+                <h2>Unit Tests saves me money?</h2>
+                <p>
+                    We all know that time is money.</p>
+                <p>
+                    Every test we add will run in the future on every code change.<br>When an issue will be found by a unit test, it is caught in an early stage of the development, what usually makes it easier to fix.<br>Comparing issue found by unit tests to tracing an issue on an end-user after the app was released, or even compared to feedback from the QA team unit tests are much faster to trace and fix.</p>
+                <p>
+                    So unit tests saves time which also means they save money (developers / qa time has a cost).</p>
+
+            </article>
+
             <nav class="blog-pagination" aria-label="Pagination">
                 <a class="btn btn-outline-primary rounded-pill" href="#">Older</a>
                 <a class="btn btn-outline-secondary rounded-pill disabled">Newer</a>
@@ -253,9 +355,8 @@ struct Hello {
         </div>
     </div>
 
+
 </main>
-<p>https://www.cssscript.com/demo/dark-mode-switcher-bootstrap-5/</p>
-<p>https://www.cssscript.com/demo/dark-mode-switcher-bootstrap-5/switch.js</p>
 
 </body>
 </html>

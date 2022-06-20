@@ -61,9 +61,10 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - returns: The result of the visit.
      */
     mutating func visitCodeBlock(_ codeBlock: CodeBlock) {
+        let language = codeBlock.language ?? "plaintext"
         print("code block:\n\(codeBlock.code)")
         html.append("""
-        <pre><code class="language-swift highlighter-rouge">
+        <pre><code class="language-\(language) highlighter-rouge">
         \(codeBlock.code)
         </code></pre>
         """)
@@ -102,6 +103,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
         let level = heading.level
         html.append("""
         <h\(level)>\(heading.plainText)</h\(level)>
+        
         """)
     }
 
@@ -115,6 +117,11 @@ struct MarkdownToHtmlGen: MarkupWalker {
         if isParsingMetadata {
             isParsingMetadata = false
             print("Finished parsing metadata \(metadata)")
+        } else {
+            html.append("""
+            <hr>
+            
+            """)
         }
         print("thematic break:\n\(thematicBreak.format())")
     }
@@ -125,8 +132,12 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - parameter html: An `HTML` element.
      - returns: The result of the visit.
      */
-    mutating func visitHTMLBlock(_ html: HTMLBlock) {
-        print("html block:\n\(html.rawHTML)")
+    mutating func visitHTMLBlock(_ htmlBlock: HTMLBlock) {
+        print("html block:\n\(htmlBlock.rawHTML)")
+        html.append("""
+        \(htmlBlock.rawHTML)
+        
+        """)
     }
 
     /**
@@ -136,7 +147,8 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - returns: The result of the visit.
      */
     mutating func visitListItem(_ listItem: ListItem) {
-        print("\(listItem.format())")
+//        print("\(listItem.format())")
+        assertionFailure("Not supported for function: \(#function)")
     }
 
     /**
@@ -147,7 +159,31 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitOrderedList(_ orderedList: OrderedList) {
         print("orders list:\n\(orderedList.format())")
+        html.append("<ol>")
+        for (index, listItem) in orderedList.listItems.enumerated() {
+            html.append("<li>")
+//            handleListItem(listItem: listItem)
+//            print("\(item.format())")
+//            print("index: \(index), index in parent: \(item.indexInParent), checkbox: \(item.checkbox)")
+//            print("Child count: \(item.childCount)")
+//            print("Children: \(item.children)")
+//            print("Block children: \(item.blockChildren.c)")
+            listItem.children.forEach { child in
+                child.accept(&self)
+            }
+            html.append("</li>\n")
+        }
+        html.append("</ol>\n")
     }
+    
+    mutating func handleListItem(listItem: ListItem) {
+//        print("\(listItem.debugDescription())")
+        for (index, item) in listItem.children.enumerated() {
+//            print("item: \(item)")
+            item.accept(&self)
+        }
+    }
+    
 
     /**
      Visit a `UnorderedList` element and return the result.
@@ -156,7 +192,22 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - returns: The result of the visit.
      */
     mutating func visitUnorderedList(_ unorderedList: UnorderedList) {
-        print("unorders list:\n\(unorderedList.format())")
+//        print("unorders list:\n\(unorderedList.format())")
+        html.append("<ul>\n")
+        for (index, listItem) in unorderedList.listItems.enumerated() {
+            html.append("<li>\n")
+//            handleListItem(listItem: listItem)
+//            print("\(item.format())")
+//            print("index: \(index), index in parent: \(item.indexInParent), checkbox: \(item.checkbox)")
+//            print("Child count: \(item.childCount)")
+//            print("Children: \(item.children)")
+//            print("Block children: \(item.blockChildren.c)")
+            listItem.children.forEach { child in
+                child.accept(&self)
+            }
+            html.append("</li>\n")
+        }
+        html.append("</ul>\n")
     }
 
     /**
@@ -169,9 +220,15 @@ struct MarkdownToHtmlGen: MarkupWalker {
         if isParsingMetadata {
             parseMetadataFields(paragraph: paragraph)
         } else {
-            html.append("""
-            <p>\(paragraph.plainText)</p>
-            """)
+            html.append("<p>\n")
+            paragraph.children.forEach { child in
+                child.accept(&self)
+            }
+            html.append("</p>\n")
+//            html.append("""
+//            <p>\(paragraph.plainText)</p>
+//
+//            """)
         }
         print("paragraph:\n\(paragraph.plainText)")
     }
@@ -186,6 +243,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitBlockDirective(_ blockDirective: BlockDirective) {
         print("block directive:\n\(blockDirective.format())")
+        assertionFailure("Not supported for function: \(#function)")
     }
 
     /**
@@ -198,6 +256,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
         print("inline code:\n\(inlineCode.plainText)")
         html.append("""
         <pre><code class="language-swift highlighter-rouge">\(inlineCode.plainText)</code></pre>
+        
         """)
     }
 
@@ -209,6 +268,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitCustomInline(_ customInline: CustomInline) {
         print("custom inline:\n\(customInline.plainText)")
+        assertionFailure("Not supported for function: \(#function)")
     }
 
     /**
@@ -217,9 +277,9 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - parameter emphasis: An `Emphasis` element.
      - returns: The result of the visit.
      */
-    mutating func visitEmphasis(_ emphasis: Emphasis) {
-        print("emphasis:\n\(emphasis.plainText)")
-    }
+//    mutating func visitEmphasis(_ emphasis: Emphasis) {
+//        print("emphasis:\n\(emphasis.plainText)")
+//    }
 
     /**
      Visit a `Image` element and return the result.
@@ -229,6 +289,10 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitImage(_ image: Image) {
         print("image:\n\(image.plainText)")
+        html.append("""
+        <img src="\(image.source ?? "")" alt="\(image.plainText)">
+        """)
+//        assertionFailure("Not supported for function: \(#function)")
     }
 
     /**
@@ -239,6 +303,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitInlineHTML(_ inlineHTML: InlineHTML) {
         print("inline html:\n\(inlineHTML.plainText)")
+        html.append(inlineHTML.plainText)
     }
 
     /**
@@ -249,6 +314,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitLineBreak(_ lineBreak: LineBreak) {
         print("line break:\n\(lineBreak.plainText)")
+        assertionFailure("Not supported for function: \(#function)")
     }
 
     /**
@@ -259,6 +325,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitLink(_ link: Link) {
         print("link:\n\(link.plainText)")
+        assertionFailure("Not supported for function: \(#function)")
     }
     
     /**
@@ -269,6 +336,8 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitSoftBreak(_ softBreak: SoftBreak) {
         print("soft break:\n\(softBreak.plainText)")
+//        assertionFailure("Not supported for function: \(#function)")
+        html.append("<br>")
     }
     /**
      Visit a `Strong` element and return the result.
@@ -278,6 +347,11 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitStrong(_ strong: Strong) {
         print("strong:\n\(strong.plainText)")
+//        assertionFailure("Not supported for function: \(#function)")
+        html.append("""
+        <p class="fw-bold">\(strong.plainText)</p>
+
+        """)
     }
 
     /**
@@ -288,6 +362,8 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitText(_ text: Text) {
         print("text:\n\(text.plainText)")
+        html.append(text.plainText)
+//        assertionFailure("Not supported for function: \(#function)")
     }
     
 
@@ -299,6 +375,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitStrikethrough(_ strikethrough: Strikethrough) {
         print("strike through:\n\(strikethrough.plainText)")
+        assertionFailure("Not supported for function: \(#function)")
     }
 
     /**
@@ -309,6 +386,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitTable(_ table: Table) {
         print("table:\n\(table.format())")
+        assertionFailure("Not supported for function: \(#function)")
     }
 
     /**
@@ -319,6 +397,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitTableHead(_ tableHead: Table.Head) {
         print("table head:\n\(tableHead.format())")
+        assertionFailure("Not supported for function: \(#function)")
     }
 
     /**
@@ -329,6 +408,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitTableBody(_ tableBody: Table.Body) {
         print("table body:\n\(tableBody.format())")
+        assertionFailure("Not supported for function: \(#function)")
     }
 
     /**
@@ -339,6 +419,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitTableRow(_ tableRow: Table.Row) {
         print("table row:\n\(tableRow.format())")
+        assertionFailure("Not supported for function: \(#function)")
     }
 
     /**
@@ -349,6 +430,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitTableCell(_ tableCell: Table.Cell) {
         print("table cell:\n\(tableCell.plainText)")
+        assertionFailure("Not supported for function: \(#function)")
     }
 
     /**
@@ -359,6 +441,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitSymbolLink(_ symbolLink: SymbolLink) {
         print("symbol link:\n\(symbolLink.plainText)")
+        assertionFailure("Not supported for function: \(#function)")
     }
         
     private mutating func parseMetadataFields(paragraph: Paragraph) {
