@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '13.4.0'
+        xcode-version: '13.4'
     - uses: actions/checkout@v3
     - name: Build
       run: cd static-site-generator && swift build -v
