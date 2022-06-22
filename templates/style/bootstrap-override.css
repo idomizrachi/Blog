@@ -2,11 +2,36 @@
     --dark-dark-gray: #333333;
 }
 
+.display-4 {
+    font-size: 2.5rem;
+}
+@media (min-width: 768px) {
+    .display-4 {
+        font-size: 3rem;
+    }
+}
 
 body {
     background-color: var(--bs-gray-800);
     color: var(--bs-light);
 }
+
+h2 {
+    font-size: 1.5rem !important;
+}
+
+h3 {
+    font-size: 1.25rem !important;
+}
+
+h4 {
+    font-size: 1.2rem !important;
+}
+
+h5 {
+    font-size: 1.1rem !important;
+}
+
 
 .container {
     background-color: var(--bs-gray-800);
@@ -21,6 +46,22 @@ td {
 
 .blog-post-row {
     background-color: var(--bs-dark);
+}
+
+.blog-post-title {
+    font-size: 2.5rem;
+}
+
+/* Blog post date*/
+.blog-post-meta {
+    color: var(--bs-gray-400);
+}
+
+.blog-footer {
+    text-align: center;
+    color: var(--bs-light);
+    background-color: var(--bs-gray-900);
+    padding: 1.5rem;
 }
 
 .pagination > li > a,
@@ -50,12 +91,28 @@ td {
     border: 0 !Important;
 }
 
+.navigation > .active {
+    background-color: var(--bs-gray-600);
+    color: var(--bs-light);
+}
+
 .nav > li > a {
     color: var(--bs-light);
 }
 
-
 .badge {
     background-color: var(--bs-gray-700);
     color: var(--bs-light)
+}
+
+.nav-pills .nav-link {
+    background-color: var(--bs-gray-900);
+}
+
+.nav-pills > .nav-item > .active {
+    background-color: var(--bs-gray-600);
+}
+
+.nav-item > .nav-link {
+    color: var(--bs-light);
 }
