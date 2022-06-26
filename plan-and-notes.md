@@ -1,3 +1,6 @@
+# More TODOS
+Should test with Github action on Ubunto - it should work
+
 # Technical Todos
 Move all HTMLs to Stencil templates https://github.com/stencilproject/Stencil
 Complete site generator
