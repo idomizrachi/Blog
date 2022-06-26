@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<p>Some content here</p>
+
+<p>Posts count: {{ posts.count }}</p>
+{% for post in posts %}
+<p>Post {{ post }}</p>
+{% endfor %}
+{% endblock %}

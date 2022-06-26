@@ -51,6 +51,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
         print("block quote:\n\(blockQuote.format())")
         html.append("""
         <blockquote class="blockquote"><p>\(blockQuote.format())</p></blockquote>
+        
         """)
     }
 
@@ -67,6 +68,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
         <pre><code class="language-\(language) highlighter-rouge">
         \(codeBlock.code)
         </code></pre>
+        
         """)
         
     }
@@ -349,8 +351,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
         print("strong:\n\(strong.plainText)")
 //        assertionFailure("Not supported for function: \(#function)")
         html.append("""
-        <p class="fw-bold">\(strong.plainText)</p>
-
+        <strong>\(strong.plainText)</strong>
         """)
     }
 
@@ -361,9 +362,11 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - returns: The result of the visit.
      */
     mutating func visitText(_ text: Text) {
-        print("text:\n\(text.plainText)")
-        html.append(text.plainText)
-//        assertionFailure("Not supported for function: \(#function)")
+//        print("text:\n\(text.plainText)")
+//        html.append(text.plainText)
+        html.append("""
+        <span>\(text.plainText)</span>
+        """)
     }
     
 
@@ -375,6 +378,9 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitStrikethrough(_ strikethrough: Strikethrough) {
         print("strike through:\n\(strikethrough.plainText)")
+        html.append("""
+        <del>\(strikethrough.plainText)</del>
+        """)
         assertionFailure("Not supported for function: \(#function)")
     }
 

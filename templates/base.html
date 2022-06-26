@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+          crossorigin="anonymous"></script>
+  <link href="style/bootstrap-override.css" rel="stylesheet"/>
+
+  <!-- Prism -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.min.css" rel="stylesheet"/>
+  <link href="style/prism-vsc-dark-plus.css" rel="stylesheet"/>
+
+  <title>Ido Mizrachi - iOS Dev Blog</title>
+</head>
+<body>
+<!-- Prism -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<main class="container">
+
+  <!-- Header Navigation -->
+  <!--    <header class="d-flex flex-wrap py-3 mb-4 border-bottom">-->
+  <!--        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">-->
+  <!--            <li><a href="index.html" class="nav-link">Articles</a></li>-->
+  <!--            <li><a href="tags.html" class="nav-link">Search by tags</a></li>-->
+  <!--            <li><a href="about.html" class="nav-link">About</a></li>-->
+  <!--        </ul>-->
+  <!--    </header>-->
+
+  <div class="container">
+    <header class="d-flex justify-content-center py-3">
+      <ul class="nav nav-pills col-12 col-md-auto mb-2">
+        <li class="nav-item"><a href="index.html" class="nav-link m-1 active" aria-current="page">Articles</a>
+        </li>
+        <li class="nav-item"><a href="tags.html" class="nav-link m-1">Search by tags</a></li>
+        <li class="nav-item"><a href="about.html" class="nav-link m-1">About</a></li>
+      </ul>
+    </header>
+  </div>
+
+  {% block content %}{% endblock %}
+
+</main>
+<footer class="blog-footer">
+  <p>This is the end of this page</p>
+  <p><a href="#">Back to top</a></p>
+</footer>
+
+</body>
+</html>
