@@ -12,15 +12,16 @@ extension BlogPostsParser {
 }
 
 
-
+/// Search and parse all markdown files in the given directory
 struct BlogPostsParser {
-        
-    
-    func parse(searchPath: String) throws {
+    func parse(searchPath: String) -> [Metadata] throws {
         print("Will search for markdown files in \(searchPath)")
         
         let markdownFiles = try searchMarkdownFiles(searchPath: searchPath)
         print("Found:\n\(markdownFiles)")
+        
+        
+        return []
     }
     
     private func searchMarkdownFiles(searchPath: String) throws -> [String] {

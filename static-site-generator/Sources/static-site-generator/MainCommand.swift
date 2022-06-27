@@ -21,7 +21,7 @@ struct MainRunner {
         let templateFilesSearchPath = currentPath + "/../templates"
         let outputPath = currentPath + "/../build"
         
-        Greeting.run()
+        Greeting.run()        
         try blogPostsParser.parse(searchPath: markdownFilesSearchPath)
         let indexPathBuilder = IndexPageBuilder(templatesPath: templateFilesSearchPath, outputPath: outputPath)
         try indexPathBuilder.build()

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"></script>
+    <link href="style/bootstrap-override.css" rel="stylesheet"/>
+
+    <!-- Prism -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.min.css" rel="stylesheet"/>
+    <link href="style/prism-vsc-dark-plus.css" rel="stylesheet"/>
+
+    <title>Ido Mizrachi - iOS Dev Blog</title>
+</head>
+<body>
+<!-- Prism -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<main class="container">
+
+
+    <!-- Header Navigation -->
+    <!--    <header class="d-flex flex-wrap py-3 mb-4 border-bottom">-->
+    <!--        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">-->
+    <!--            <li><a href="index.html" class="nav-link">Articles</a></li>-->
+    <!--            <li><a href="tags.html" class="nav-link">Search by tags</a></li>-->
+    <!--            <li><a href="about.html" class="nav-link">About</a></li>-->
+    <!--        </ul>-->
+    <!--    </header>-->
+
+    <div class="container">
+        <header class="d-flex justify-content-center py-3">
+            <ul class="nav nav-pills col-12 col-md-auto mb-2">
+                <li class="nav-item"><a href="index.html" class="nav-link m-1 active" aria-current="page">Articles</a>
+                </li>
+                <li class="nav-item"><a href="tags.html" class="nav-link m-1">Search by tags</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link m-1">About</a></li>
+            </ul>
+        </header>
+    </div>
+
+    <!-- Hero Header -->
+    <div class="p-4 mt-4 mb-1 text-white rounded bg-dark">
+        <h2 class="display-4 fst-italic">Ido Mizrachi</h2>
+        <h2>iOS Developer</h2>
+    </div>
+
+    <!-- Posts -->
+    <!-- Featured Posts -->
+    <!--    <div class="row mb-2">-->
+    <!--        <div class="col-md-6">-->
+    <!--            <div class="blog-post-row  row g-0 rounded overflow-hidden flex-md-row mb-4 h-md-250 position-relative">-->
+    <!--                <div class="col p-4 d-flex flex-column position-static">-->
+    <!--                    <strong class="d-inline-block mb-2 text-primary">World</strong>-->
+    <!--                    <h3 class="mb-0">Featured postxx</h3>-->
+    <!--                    <div class="mb-1 text-muted">Nov 12</div>-->
+    <!--                    <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to-->
+    <!--                        additional content.</p>-->
+    <!--                    <p>hello sdfds fs dfs </p>-->
+    <!--                    <a href="https://www.google.com" class="stretched-link">Continue reading</a>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="col-md-6">-->
+    <!--            <div class="blog-post-row  row g-0 rounded overflow-hidden flex-md-row mb-4 h-md-250 position-relative">-->
+    <!--                <div class="col p-4 d-flex flex-column position-static">-->
+    <!--                    <strong class="d-inline-block mb-2 text-success">Design</strong>-->
+    <!--                    <h3 class="mb-0">Post title</h3>-->
+    <!--                    <div class="mb-1 text-muted">Nov 11</div>-->
+    <!--                    <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to-->
+    <!--                        additional content.</p>-->
+    <!--                    <a href="1.html" class="stretched-link">Continue reading</a>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+    <!-- Top Pagination -->
+    <div class="row">
+        <div class="col">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link disabled" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link active" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main page post display the header + first paragraph -->
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col rounded blog-post-row">
+                <article class="blog-post mt-4">
+                    <h2 class="blog-post-title mb-1"><a href="post.html">Sample blog post header 1</a></h2>
+                    <p>1 Jan 2021</p>
+                    <p><h6><span class="badge bd-primary">Swift</span> <span class="badge bd-primary">iOS</span>
+                </h6></p>
+                    <p>This blog post shows a few different types of content that’s supported and styled with Bootstrap.
+                        Basic
+                        typography, lists, tables, images, code, and more are all supported as expected.</p>
+                    <p><a href="post.html">Continue reading...</a></p>
+                </article>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col rounded blog-post-row">
+                <article class="blog-post mt-4">
+                    <h2 class="blog-post-title mb-1"><a href="post.html">Sample blog post header 1</a></h2>
+                    <p class="blog-post-meta">January 1, 2021</p>
+                    <p>This blog post shows a few different types of content that’s supported and styled with Bootstrap.
+                        Basic
+                        typography, lists, tables, images, code, and more are all supported as expected.</p>
+                    <p><a href="post.html">Continue reading...</a></p>
+                </article>
+            </div>
+        </div>
+    </div> <!-- POSTS -->
+
+    <!-- Pagination -->
+    <div class="row mt-3">
+        <div class="col">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link disabled" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link active" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </div>
+    </div>
+</main>
+<footer class="blog-footer">
+    <p>This is the end of this page</p>
+    <p><a href="#">Back to top</a></p>
+</footer>
+
+</body>
+</html>
