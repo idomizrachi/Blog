@@ -11,10 +11,7 @@ struct PostDate {
 }
 
 struct MainRunner {
-    let blogPostsParser = BlogPostsParser()
-    
     func run() throws {
-        
         let currentPath = ProcessInfo.processInfo.environment["RUN_PATH"] ?? FileManager.default.currentDirectoryPath
         print("Current path: \(currentPath)")
         let markdownFilesSearchPath = currentPath + "/../content"
@@ -22,9 +19,10 @@ struct MainRunner {
         let outputPath = currentPath + "/../build"
         
         Greeting.run()        
-        try blogPostsParser.parse(searchPath: markdownFilesSearchPath)
-        let indexPathBuilder = IndexPageBuilder(templatesPath: templateFilesSearchPath, outputPath: outputPath)
-        try indexPathBuilder.build()
+        let parsingResult = try BlogPostsBuilder().run(searchPath: markdownFilesSearchPath, outputPath: outputPath)
+        try IndexPageBuilder(metadata: parsingResult.filesMetadata, templatesPath: templateFilesSearchPath, outputPath: outputPath).run()
+        TagsPageBuilder().run()
+        AboutPageBuilder().run()
         
                 
         // Parse all blog posts

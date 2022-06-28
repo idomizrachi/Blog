@@ -8,5 +8,7 @@
 import Foundation
 
 struct AboutPageBuilder {
-    
+    func run() {
+        
+    }
 }

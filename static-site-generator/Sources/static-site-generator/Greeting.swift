@@ -15,7 +15,7 @@ struct Greeting {
         \__ \ | |/ _ \| |  | | (__   \__ \| |  | | | _|   | (_ | _|| .` |
         |___/ |_/_/ \_\_| |___\___|  |___/___| |_| |___|   \___|___|_|\_|
         
-        This script generates the content for my (Ido Mizrachi) website.
+        This script generates the content for my developer blog: https://idomizrachi.github.io
         """#
         )        
     }
