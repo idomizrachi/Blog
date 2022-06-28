@@ -7,6 +7,8 @@
 
 import Foundation
 import Markdown
+import PathKit
+import Stencil
 
 extension BlogPostsBuilder {
     struct MissingPostDate: Error {}
@@ -29,12 +31,12 @@ struct ParsingResult {
 /// 2. Posts html files in the output directory
 struct BlogPostsBuilder {
     
-    func run(searchPath: String, outputPath: String) throws -> ParsingResult  {
+    func run(searchPath: String, outputPath: String, templatesPath: String) throws -> ParsingResult  {
         print("Will search for markdown files in: \(searchPath)")
         let markdownFiles = try searchMarkdownFiles(searchPath: searchPath)
         print("Found:")
         print(markdownFiles.reduce("", { "\($0)\($1)\n"}).trimmingCharacters(in: .newlines))
-        return try parseMarkdownFiles(markdownFiles: markdownFiles, outputPath: outputPath)
+        return try parseMarkdownFiles(markdownFiles: markdownFiles, templatesPath: templatesPath, outputPath: outputPath)
     }
     
     private func searchMarkdownFiles(searchPath: String) throws -> [String] {
@@ -42,30 +44,23 @@ struct BlogPostsBuilder {
         return markdownFiles.map({ searchPath.appending("/" + $0) })
     }
     
-    private func parseMarkdownFiles(markdownFiles: [String], outputPath: String) throws -> ParsingResult  {
+    private func parseMarkdownFiles(markdownFiles: [String], templatesPath: String, outputPath: String) throws -> ParsingResult  {
         var filesMetadata: [FileMetadata] = []
         var allTags: Set<String> = Set()
         try markdownFiles.forEach { markdownFile in
-            print("Start parsing \(markdownFile)")
+            print("Starting to parse markdown file: \(markdownFile)")
             let markdownDocument = try Document(parsing: URL(fileURLWithPath: markdownFile))
             var htmlWalker = MarkdownToHtmlGen()
             htmlWalker.visit(markdownDocument)
-            print("Parsing finished \(markdownFile)")
+            print("Finished parsing markdown file: \(markdownFile)")
             print("Metadata: \(htmlWalker.metadata)")
-            print("HTML: \(htmlWalker.html)")
+//            print("HTML: \(htmlWalker.html)")
             
             let postDate = try parseDate(string: htmlWalker.metadata.date)
-
-            let outputFile = outputPath + "/\(postDate.year)_\(postDate.month)_\(postDate.day)_post.html"
-            if let htmlData = htmlWalker.html.data(using: .utf8) {
-                
-                let htmlFilePath = URL(fileURLWithPath: outputFile)
-                do {
-                    try htmlData.write(to: htmlFilePath)
-                } catch {
-                    print("Failed to write file \(htmlFilePath)")
-                }
-            }
+            let filename = (htmlWalker.metadata.title ?? "post").toBlogPostFilename()
+            let outputFile = outputPath + "/\(postDate.year)_\(postDate.month)_\(postDate.day)_\(filename).html"
+            try buildPostPage(templatesPath: templatesPath, metadata: htmlWalker.metadata, markdownPostHtml: htmlWalker.html, outputFile: outputFile)
+            
             filesMetadata.append(FileMetadata(file: markdownFile, outputFile: outputFile, metadata: htmlWalker.metadata))
 
             allTags.formUnion(Set(htmlWalker.metadata.tags))
@@ -95,5 +90,43 @@ struct BlogPostsBuilder {
         return PostDate(year: year, month: month, day: day, date: date)
     }
     
-    
+    private func buildPostPage(templatesPath: String, metadata: Metadata, markdownPostHtml: String, outputFile: String) throws {
+        let environment = Environment(loader: FileSystemLoader(paths: [Path(templatesPath)]))
+        let postTemplate = try environment.loadTemplate(name: templatesPath + "/post-stencil.html")
+        let context: [String: Any] = [
+            "title": metadata.title ?? "",
+            "date": metadata.date ?? "",
+            "tags": metadata.tags,
+            "post": markdownPostHtml
+        ]
+        let generatedPostHtml = try postTemplate.render(context)
+        guard let data = generatedPostHtml.data(using: .utf8) else {
+            throw NSError(domain: "StringToDataError", code: 0, userInfo: nil)
+        }
+        try data.write(to: URL(fileURLWithPath: outputFile))
+        print("Generated post at: \(outputFile)")
+        //        let context: [String: Any] = [
+        //            "posts": ["post 1", "post 2", "post 3"]
+        //        ]
+        //        let result = try template.render(context)
+        //        print("\(result)")
+        //
+        //        print("Index template: \(templatesPath)")
+        //        print("Output: \(outputPath)")
+//        if let htmlData = htmlWalker.html.data(using: .utf8) {
+//            
+//            let htmlFilePath = URL(fileURLWithPath: outputFile)
+//            do {
+//                try htmlData.write(to: htmlFilePath)
+//            } catch {
+//                print("Failed to write file \(htmlFilePath)")
+//            }
+//        }
+    }
+}
+
+fileprivate extension String {
+    func toBlogPostFilename() -> String {
+        return self.replacingOccurrences(of: " ", with: "_").lowercased()
+    }
 }

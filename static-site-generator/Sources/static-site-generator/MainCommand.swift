@@ -1,7 +1,6 @@
 import ArgumentParser
 import Foundation
 import Markdown
-import Stencil
 
 struct PostDate {
     let year: Int
@@ -19,7 +18,7 @@ struct MainRunner {
         let outputPath = currentPath + "/../build"
         
         Greeting.run()        
-        let parsingResult = try BlogPostsBuilder().run(searchPath: markdownFilesSearchPath, outputPath: outputPath)
+        let parsingResult = try BlogPostsBuilder().run(searchPath: markdownFilesSearchPath, outputPath: outputPath, templatesPath: templateFilesSearchPath)
         try IndexPageBuilder(metadata: parsingResult.filesMetadata, templatesPath: templateFilesSearchPath, outputPath: outputPath).run()
         TagsPageBuilder().run()
         AboutPageBuilder().run()
