@@ -48,7 +48,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - returns: The result of the visit.
      */
     mutating func visitBlockQuote(_ blockQuote: BlockQuote) {
-        print("block quote:\n\(blockQuote.format())")
+//        print("block quote:\n\(blockQuote.format())")
         html.append("""
         <blockquote class="blockquote"><p>\(blockQuote.format())</p></blockquote>
         
@@ -63,7 +63,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitCodeBlock(_ codeBlock: CodeBlock) {
         let language = codeBlock.language ?? "plaintext"
-        print("code block:\n\(codeBlock.code)")
+//        print("code block:\n\(codeBlock.code)")
         html.append("""
         <pre><code class="language-\(language) highlighter-rouge">
         \(codeBlock.code)
@@ -101,7 +101,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - returns: The result of the visit.
      */
     mutating func visitHeading(_ heading: Heading) {
-        print("heading:\n\(heading.plainText)")
+//        print("heading:\n\(heading.plainText)")
         let level = heading.level
         html.append("""
         <h\(level)>\(heading.plainText)</h\(level)>
@@ -125,7 +125,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
             
             """)
         }
-        print("thematic break:\n\(thematicBreak.format())")
+//        print("thematic break:\n\(thematicBreak.format())")
     }
     
     /**
@@ -135,7 +135,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - returns: The result of the visit.
      */
     mutating func visitHTMLBlock(_ htmlBlock: HTMLBlock) {
-        print("html block:\n\(htmlBlock.rawHTML)")
+//        print("html block:\n\(htmlBlock.rawHTML)")
         html.append("""
         \(htmlBlock.rawHTML)
         
@@ -149,7 +149,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - returns: The result of the visit.
      */
     mutating func visitListItem(_ listItem: ListItem) {
-//        print("\(listItem.format())")
+        print("\(listItem.format())")
         assertionFailure("Not supported for function: \(#function)")
     }
 
@@ -160,7 +160,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - returns: The result of the visit.
      */
     mutating func visitOrderedList(_ orderedList: OrderedList) {
-        print("orders list:\n\(orderedList.format())")
+//        print("orders list:\n\(orderedList.format())")
         html.append("<ol>")
         for (index, listItem) in orderedList.listItems.enumerated() {
             html.append("<li>")
@@ -232,7 +232,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
 //
 //            """)
         }
-        print("paragraph:\n\(paragraph.plainText)")
+//        print("paragraph:\n\(paragraph.plainText)")
     }
     
     
@@ -255,7 +255,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - returns: The result of the visit.
      */
     mutating func visitInlineCode(_ inlineCode: InlineCode) {
-        print("inline code:\n\(inlineCode.plainText)")
+//        print("inline code:\n\(inlineCode.plainText)")
         html.append("""
         <pre><code class="language-swift highlighter-rouge">\(inlineCode.plainText)</code></pre>
         
@@ -290,7 +290,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - returns: The result of the visit.
      */
     mutating func visitImage(_ image: Image) {
-        print("image:\n\(image.plainText)")
+//        print("image:\n\(image.plainText)")
         html.append("""
         <img src="\(image.source ?? "")" alt="\(image.plainText)">
         """)
@@ -304,7 +304,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - returns: The result of the visit.
      */
     mutating func visitInlineHTML(_ inlineHTML: InlineHTML) {
-        print("inline html:\n\(inlineHTML.plainText)")
+//        print("inline html:\n\(inlineHTML.plainText)")
         html.append(inlineHTML.plainText)
     }
 
@@ -337,7 +337,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - returns: The result of the visit.
      */
     mutating func visitSoftBreak(_ softBreak: SoftBreak) {
-        print("soft break:\n\(softBreak.plainText)")
+//        print("soft break:\n\(softBreak.plainText)")
 //        assertionFailure("Not supported for function: \(#function)")
         html.append("<br>")
     }
@@ -348,7 +348,7 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - returns: The result of the visit.
      */
     mutating func visitStrong(_ strong: Strong) {
-        print("strong:\n\(strong.plainText)")
+//        print("strong:\n\(strong.plainText)")
 //        assertionFailure("Not supported for function: \(#function)")
         html.append("""
         <strong>\(strong.plainText)</strong>
@@ -377,11 +377,10 @@ struct MarkdownToHtmlGen: MarkupWalker {
      - returns: The result of the visit.
      */
     mutating func visitStrikethrough(_ strikethrough: Strikethrough) {
-        print("strike through:\n\(strikethrough.plainText)")
+//        print("strike through:\n\(strikethrough.plainText)")
         html.append("""
         <del>\(strikethrough.plainText)</del>
         """)
-        assertionFailure("Not supported for function: \(#function)")
     }
 
     /**
