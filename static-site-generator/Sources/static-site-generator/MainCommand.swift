@@ -9,12 +9,15 @@ struct PostDate {
     let date: Date
 }
 
+
+
 struct MainRunner {
     func run() throws {
         let currentPath = ProcessInfo.processInfo.environment["RUN_PATH"] ?? FileManager.default.currentDirectoryPath
         print("Current path: \(currentPath)")
         let markdownFilesSearchPath = currentPath + "/../content"
         let templateFilesSearchPath = currentPath + "/../templates"
+        let templateCssPath = currentPath + "/../templates/style"
         let outputPath = currentPath + "/../build"
         
         Greeting.run()        
@@ -22,6 +25,8 @@ struct MainRunner {
         try IndexPageBuilder(metadata: parsingResult.filesMetadata, templatesPath: templateFilesSearchPath, outputPath: outputPath).run()
         TagsPageBuilder().run()
         AboutPageBuilder().run()
+        // Run CopyResources for each resource folder - css / images / etc
+        try CopyResources(templatesResourcesPath: templateCssPath, buildPath: outputPath + "/style").run()
         
                 
         // Parse all blog posts
