@@ -12,7 +12,7 @@ struct Metadata {
     var title: String? = nil
     var subtitle: String? = nil
     var tags: [String] = []
-    var date: String? = nil //YYYY-MM-dd - https://www.iso.org/iso-8601-date-and-time-format.html
+    var date: String? = nil //YYYY-MM-dd - https://www.iso.org/iso-8601-date-and-time-format.html    
 }
 
 struct MarkdownToHtmlGen: MarkupWalker {

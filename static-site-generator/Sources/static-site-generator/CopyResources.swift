@@ -15,6 +15,9 @@ struct CopyResources {
         let resouceFiles = try FileManager.default.contentsOfDirectory(atPath: templatesResourcesPath)
         try resouceFiles.forEach { resourceFile in
             let buildResourceFile = buildPath + "/" + resourceFile
+            if FileManager.default.fileExists(atPath: buildResourceFile) {
+                try FileManager.default.removeItem(atPath: buildResourceFile)
+            }            
             try FileManager.default.copyItem(atPath: templatesResourcesPath + "/" +  resourceFile, toPath: buildResourceFile)
         }
     }

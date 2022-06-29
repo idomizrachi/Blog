@@ -10,9 +10,7 @@ import Markdown
 import PathKit
 import Stencil
 
-extension BlogPostsBuilder {
-    struct MissingPostDate: Error {}
-}
+struct MissingPostDate: Error {}
 
 struct FileMetadata {
     let file: String
@@ -61,7 +59,7 @@ struct BlogPostsBuilder {
             let outputFile = outputPath + "/\(postDate.year)_\(postDate.month)_\(postDate.day)_\(filename).html"
             try buildPostPage(templatesPath: templatesPath, metadata: htmlWalker.metadata, markdownPostHtml: htmlWalker.html, outputFile: outputFile)
             
-            filesMetadata.append(FileMetadata(file: markdownFile, outputFile: outputFile, metadata: htmlWalker.metadata))
+            filesMetadata.append(FileMetadata(file: markdownFile, outputFile: /*outputFile*/"\(postDate.year)_\(postDate.month)_\(postDate.day)_\(filename).html", metadata: htmlWalker.metadata))
 
             allTags.formUnion(Set(htmlWalker.metadata.tags))
         }
@@ -105,23 +103,6 @@ struct BlogPostsBuilder {
         }
         try data.write(to: URL(fileURLWithPath: outputFile))
         print("Generated post at: \(outputFile)")
-        //        let context: [String: Any] = [
-        //            "posts": ["post 1", "post 2", "post 3"]
-        //        ]
-        //        let result = try template.render(context)
-        //        print("\(result)")
-        //
-        //        print("Index template: \(templatesPath)")
-        //        print("Output: \(outputPath)")
-//        if let htmlData = htmlWalker.html.data(using: .utf8) {
-//            
-//            let htmlFilePath = URL(fileURLWithPath: outputFile)
-//            do {
-//                try htmlData.write(to: htmlFilePath)
-//            } catch {
-//                print("Failed to write file \(htmlFilePath)")
-//            }
-//        }
     }
 }
 

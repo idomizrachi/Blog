@@ -2,31 +2,24 @@ import ArgumentParser
 import Foundation
 import Markdown
 
-struct PostDate {
-    let year: Int
-    let month: Int
-    let day: Int
-    let date: Date
-}
-
-
-
 struct MainRunner {
     func run() throws {
         let currentPath = ProcessInfo.processInfo.environment["RUN_PATH"] ?? FileManager.default.currentDirectoryPath
         print("Current path: \(currentPath)")
         let markdownFilesSearchPath = currentPath + "/../content"
         let templateFilesSearchPath = currentPath + "/../templates"
-        let templateCssPath = currentPath + "/../templates/style"
+        let templateCssPath = templateFilesSearchPath + "/style"
         let outputPath = currentPath + "/../build"
+        let outputCssPath = outputPath + "/style"
         
         Greeting.run()        
         let parsingResult = try BlogPostsBuilder().run(searchPath: markdownFilesSearchPath, outputPath: outputPath, templatesPath: templateFilesSearchPath)
-        try IndexPageBuilder(metadata: parsingResult.filesMetadata, templatesPath: templateFilesSearchPath, outputPath: outputPath).run()
+        let sortedMetadata = sortPostsMetadata(metadata: parsingResult.filesMetadata)
+        try IndexPagesBuilder(metadata: sortedMetadata, templatesPath: templateFilesSearchPath, outputPath: outputPath, postsPerPage: 4).run() //extract 4 to configuration
         TagsPageBuilder().run()
         AboutPageBuilder().run()
         // Run CopyResources for each resource folder - css / images / etc
-        try CopyResources(templatesResourcesPath: templateCssPath, buildPath: outputPath + "/style").run()
+        try CopyResources(templatesResourcesPath: templateCssPath, buildPath: outputCssPath).run()
         
                 
         // Parse all blog posts
@@ -58,7 +51,7 @@ struct MainRunner {
 //        print("Welcome to Ido Mizrachi's static site generator")
 //        print("Searching for markdown files in path: \(markdownFilesPath)")
 //        print("Output path: \(outputPath)")
-//    }
+    }
     
 //    func parseMarkdownFiles(markdownFiles: [String]) throws {
 //        var allTags: Set<String> = Set()
@@ -91,26 +84,37 @@ struct MainRunner {
 //        print("All Tags: \(allTags)")
 //    }
     
-//    func parseDate(string: String?) throws -> PostDate {
-//        guard let string = string else {
-//            throw MissingPostDate()
-//        }
-//        let formatter = DateFormatter()
-//        formatter.locale = Locale(identifier: "en_US_POSIX")
-//        formatter.dateFormat = "yyyy-MM-dd"
-//        guard let date = formatter.date(from: string) else {
-//            throw MissingPostDate()
-//        }
-//        let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
-//        guard
-//            let year = dateComponents.year,
-//            let month = dateComponents.month,
-//            let day = dateComponents.day
-//        else {
-//            throw MissingPostDate()
-//        }
-//        return PostDate(year: year, month: month, day: day, date: date)
-//    }
+    func sortPostsMetadata(metadata: [FileMetadata]) -> [FileMetadata] {
+        return metadata.sorted(by: { lhs, rhs in
+            guard let lDate = try? parseDate(string: lhs.metadata.date) else {
+                return false
+            }
+            guard let rDate = try? parseDate(string: rhs.metadata.date) else {
+                return true
+            }
+            return  lDate.date > rDate.date
+        })
+    }
+        
+    func parseDate(string: String?) throws -> PostDate {
+        guard let string = string else {
+            throw MissingPostDate()
+        }
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd"
+        guard let date = formatter.date(from: string) else {
+            throw MissingPostDate()
+        }
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
+        guard
+            let year = dateComponents.year,
+            let month = dateComponents.month,
+            let day = dateComponents.day
+        else {
+            throw MissingPostDate()
+        }
+        return PostDate(year: year, month: month, day: day, date: date)
     }
 }
 

@@ -47,6 +47,9 @@ Xcode Debug key-binding
 As you can see most of the keys selected for shortcuts are located at the left side of the keyboard
 
 
+Post idea - Property wrapper - verify monify on main thread
+https://www.swiftbysundell.com/articles/property-wrappers-in-swift/
+
 ## iOS and general developer blog - to review the web design / layout
 
 https://www.vadimbulavin.com/
