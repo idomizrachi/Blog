@@ -46,6 +46,8 @@ Xcode Debug key-binding
 
 As you can see most of the keys selected for shortcuts are located at the left side of the keyboard
 
+https://www.w3docs.com/snippets/css/how-to-vertically-align-text-next-to-an-image.html
+For adding image next to text
 
 Post idea - Property wrapper - verify monify on main thread
 https://www.swiftbysundell.com/articles/property-wrappers-in-swift/

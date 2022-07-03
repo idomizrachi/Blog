@@ -32,7 +32,7 @@
 <main class="container">
   <div class="row">
     <div class="col">
-      <div><a href="index.html">Back</a></div>
+      <div><a href="javascript:history.back()">&lt; Back</a></div>
       <div class="blog-post-title">{{ title }}</div>
       <div class="blog-post-date">Posted on {{ date }}</div>
       <div class="blog-post-tags">{% for tag in tags %}#{{ tag }} {% endfor %}</div>

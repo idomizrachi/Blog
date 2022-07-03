@@ -9,8 +9,10 @@ struct MainRunner {
         let markdownFilesSearchPath = currentPath + "/../content"
         let templateFilesSearchPath = currentPath + "/../templates"
         let templateCssPath = templateFilesSearchPath + "/style"
+        let templateImagesPath = templateFilesSearchPath + "/images"
         let outputPath = currentPath + "/../build"
         let outputCssPath = outputPath + "/style"
+        let outputImagesPath = outputPath + "/images"
         
         Greeting.run()        
         let parsingResult = try BlogPostsBuilder().run(searchPath: markdownFilesSearchPath, outputPath: outputPath, templatesPath: templateFilesSearchPath)
@@ -20,7 +22,7 @@ struct MainRunner {
         AboutPageBuilder().run()
         // Run CopyResources for each resource folder - css / images / etc
         try CopyResources(templatesResourcesPath: templateCssPath, buildPath: outputCssPath).run()
-        
+        try CopyResources(templatesResourcesPath: templateImagesPath, buildPath: outputImagesPath).run()
                 
         // Parse all blog posts
         
@@ -86,36 +88,36 @@ struct MainRunner {
     
     func sortPostsMetadata(metadata: [FileMetadata]) -> [FileMetadata] {
         return metadata.sorted(by: { lhs, rhs in
-            guard let lDate = try? parseDate(string: lhs.metadata.date) else {
+            guard let lDate = lhs.metadata.date?.date else {
                 return false
             }
-            guard let rDate = try? parseDate(string: rhs.metadata.date) else {
+            guard let rDate = rhs.metadata.date?.date else {
                 return true
             }
-            return  lDate.date > rDate.date
+            return  lDate > rDate
         })
     }
         
-    func parseDate(string: String?) throws -> PostDate {
-        guard let string = string else {
-            throw MissingPostDate()
-        }
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd"
-        guard let date = formatter.date(from: string) else {
-            throw MissingPostDate()
-        }
-        let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
-        guard
-            let year = dateComponents.year,
-            let month = dateComponents.month,
-            let day = dateComponents.day
-        else {
-            throw MissingPostDate()
-        }
-        return PostDate(year: year, month: month, day: day, date: date)
-    }
+//    func parseDate(string: String?) throws -> PostDate {
+//        guard let string = string else {
+//            throw MissingPostDate()
+//        }
+//        let formatter = DateFormatter()
+//        formatter.locale = Locale(identifier: "en_US_POSIX")
+//        formatter.dateFormat = "yyyy-MM-dd"
+//        guard let date = formatter.date(from: string) else {
+//            throw MissingPostDate()
+//        }
+//        let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
+//        guard
+//            let year = dateComponents.year,
+//            let month = dateComponents.month,
+//            let day = dateComponents.day
+//        else {
+//            throw MissingPostDate()
+//        }
+//        return PostDate(year: year, month: month, day: day, date: date)
+//    }
 }
 
 

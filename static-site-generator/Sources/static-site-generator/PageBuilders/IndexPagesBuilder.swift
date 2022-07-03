@@ -23,34 +23,61 @@ struct IndexPagesBuilder {
         let template = try environment.loadTemplate(name: templatesPath + "/index-stencil.html")
         
         var currentPagePosts: [FileMetadata] = []
+        let numberOfIndexPages = metadata.count / postsPerPage + 1
+        print("Number of index pages: \(numberOfIndexPages)")
         for postIndex in 0..<metadata.count {
+            let currentIndexPage = postIndex / postsPerPage
             if postIndex % postsPerPage == 0 {
-                print("Generating index page \(postIndex / postsPerPage)")
+                print("Generating index page \(currentIndexPage)")
                 if currentPagePosts.isEmpty == false {
-                    try buildIndexPage(template: template, currentPagePosts: currentPagePosts, postIndex: postIndex)
+                    try buildIndexPage(template: template, currentPagePosts: currentPagePosts, currentIndexPage: currentIndexPage, numberOfIndexPages: numberOfIndexPages)
                 }
                 currentPagePosts.removeAll()
             }
-            print("Update index page \(postIndex / postsPerPage) with post \(postIndex)")
+            print("Update index page \(currentIndexPage) with post \(postIndex)")
             currentPagePosts.append(metadata[postIndex])
         }
-        print("Generate last page")
+        print("Generate last page \(currentPagePosts.count)")
+        if currentPagePosts.isEmpty == false {
+            try buildIndexPage(template: template, currentPagePosts: currentPagePosts, currentIndexPage: numberOfIndexPages, numberOfIndexPages: numberOfIndexPages)
+        }
+        
     }
     
-    private func buildIndexPage(template: Template, currentPagePosts: [FileMetadata], postIndex: Int) throws {
+    private func buildIndexPage(template: Template, currentPagePosts: [FileMetadata], currentIndexPage: Int, numberOfIndexPages: Int) throws {
         let posts: [[String: Any]] = currentPagePosts.map {
             return [
                 "title": $0.metadata.title ?? "",
-                "date": $0.metadata.date ?? "",
+                "date": $0.metadata.date?.stringValue() ?? "",
                 "tags": $0.metadata.tags,
                 "subtitle": $0.metadata.subtitle ?? "",
                 "href": $0.outputFile
             ]
         }
-        let context: [String: Any] = ["posts": posts]
+        print("currentIndexPage: \(currentIndexPage), numberOfIndexPages: \(numberOfIndexPages)")
+        let newerPage: String
+        if currentIndexPage == 2 {
+            newerPage = "index.html"
+        } else {
+            newerPage = "index_\(currentIndexPage-1).html"
+        }
+        let olderPage: String = "index_\(currentIndexPage+1).html"
+        let context: [String: Any] = [
+            "posts": posts,
+            "hasNewerPage": currentIndexPage > 1,
+            "hasOlderPage": currentIndexPage < numberOfIndexPages,
+            "newerPage": newerPage,
+            "olderPage": olderPage
+        ]
         let indexPageHtml = try template.render(context)
         let indexPageHtmlData = indexPageHtml.data(using: .utf8)!
-        let outputFile = (postIndex / postsPerPage) - 1 == 0 ? "index.html" : "index_\(postIndex / postsPerPage).html"
+        let outputFile: String
+        if currentIndexPage == 1 {
+            outputFile = "index.html"
+        } else {
+            outputFile = "index_\(currentIndexPage).html"
+        }
+         
         if FileManager.default.fileExists(atPath: outputPath + "/" + outputFile) {
             try FileManager.default.removeItem(atPath: outputPath + "/" + outputFile)
         }

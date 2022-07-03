@@ -54,7 +54,10 @@ struct BlogPostsBuilder {
             print("Metadata: \(htmlWalker.metadata)")
 //            print("HTML: \(htmlWalker.html)")
             
-            let postDate = try parseDate(string: htmlWalker.metadata.date)
+//            let postDate = try parseDate(string: htmlWalker.metadata.date)
+            guard let postDate = htmlWalker.metadata.date else {
+                throw MissingPostDate()
+            }
             let filename = (htmlWalker.metadata.title ?? "post").toBlogPostFilename()
             let outputFile = outputPath + "/\(postDate.year)_\(postDate.month)_\(postDate.day)_\(filename).html"
             try buildPostPage(templatesPath: templatesPath, metadata: htmlWalker.metadata, markdownPostHtml: htmlWalker.html, outputFile: outputFile)
@@ -67,33 +70,14 @@ struct BlogPostsBuilder {
         return ParsingResult(filesMetadata: filesMetadata, allTags: allTags)
     }
     
-    private func parseDate(string: String?) throws -> PostDate {
-        guard let string = string else {
-            throw MissingPostDate()
-        }
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd"
-        guard let date = formatter.date(from: string) else {
-            throw MissingPostDate()
-        }
-        let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
-        guard
-            let year = dateComponents.year,
-            let month = dateComponents.month,
-            let day = dateComponents.day
-        else {
-            throw MissingPostDate()
-        }
-        return PostDate(year: year, month: month, day: day, date: date)
-    }
+    
     
     private func buildPostPage(templatesPath: String, metadata: Metadata, markdownPostHtml: String, outputFile: String) throws {
         let environment = Environment(loader: FileSystemLoader(paths: [Path(templatesPath)]))
         let postTemplate = try environment.loadTemplate(name: templatesPath + "/post-stencil.html")
         let context: [String: Any] = [
             "title": metadata.title ?? "",
-            "date": metadata.date ?? "",
+            "date": metadata.date?.stringValue() ?? "",
             "tags": metadata.tags,
             "post": markdownPostHtml
         ]

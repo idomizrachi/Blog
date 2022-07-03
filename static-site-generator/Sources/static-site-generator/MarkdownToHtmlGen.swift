@@ -12,7 +12,7 @@ struct Metadata {
     var title: String? = nil
     var subtitle: String? = nil
     var tags: [String] = []
-    var date: String? = nil //YYYY-MM-dd - https://www.iso.org/iso-8601-date-and-time-format.html    
+    var date: PostDate?
 }
 
 struct MarkdownToHtmlGen: MarkupWalker {
@@ -471,8 +471,13 @@ struct MarkdownToHtmlGen: MarkupWalker {
         }
         
         if let date = parseMetadataField(header: "date", paragraph: paragraph) {
-            self.metadata.date = date
+            do {
+                self.metadata.date = try parseDate(string: date)
+            } catch {
+                fatalError("Post is date contains invalid format \(String(describing: self.metadata.title)) \(String(describing: self.metadata.subtitle))")
+            }
         }
+        
         
         if let subtitle = parseMetadataField(header: "subtitle", paragraph: paragraph) {
             self.metadata.subtitle = subtitle
@@ -486,5 +491,26 @@ struct MarkdownToHtmlGen: MarkupWalker {
         let headerCharactersCount = "\(header): ".count
         let skipHeader = paragraph.plainText.index(paragraph.plainText.startIndex, offsetBy: headerCharactersCount)
         return String(paragraph.plainText[skipHeader...])
+    }
+    
+    private func parseDate(string: String?) throws -> PostDate {
+        guard let string = string else {
+            throw MissingPostDate()
+        }
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd"
+        guard let date = formatter.date(from: string) else {
+            throw MissingPostDate()
+        }
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
+        guard
+            let year = dateComponents.year,
+            let month = dateComponents.month,
+            let day = dateComponents.day
+        else {
+            throw MissingPostDate()
+        }
+        return PostDate(year: year, month: month, day: day, date: date)
     }
 }

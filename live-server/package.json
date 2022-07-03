@@ -1,0 +1,7 @@
+{
+  "name": "live-server-runner",
+  "version": "1.0.0",
+  "dependencies": {
+    "live-server": "1.2.2"
+  }
+}
