@@ -28,8 +28,21 @@
 <!-- Top navigation -->
 {% include "navigation-stencil.html" %}
 
-<!-- Posts -->
+<!-- Pager - Next / Previous -->
+<div class="container">
+    <div class="row mt-4">
+        <div class="col col-2">
+            <a href="{{ newerPage }}" class="{% if not hasNewerPage %}disabled{% endif %}">Newer</a>
+        </div>
+        <div class="col col-2">
+            <a href="{{ olderPage }}" class="{% if not hasOlderPage %}disabled{% endif %}">Older</a>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
 
+<!-- Posts -->
 <main class="container">
     {% for post in posts %}
     {% if forloop.first %}
