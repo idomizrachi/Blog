@@ -29,18 +29,7 @@
 {% include "navigation-stencil.html" %}
 
 <!-- Pager - Next / Previous -->
-<div class="container">
-    <div class="row mt-4">
-        <div class="col col-2">
-            <a href="{{ newerPage }}" class="{% if not hasNewerPage %}disabled{% endif %}">Newer</a>
-        </div>
-        <div class="col col-2">
-            <a href="{{ olderPage }}" class="{% if not hasOlderPage %}disabled{% endif %}">Older</a>
-        </div>
-        <div class="col">
-        </div>
-    </div>
-</div>
+{% include "paging-stencil.html" %}
 
 <!-- Posts -->
 <main class="container">
@@ -64,18 +53,7 @@
 </main>
 
 <!-- Pager - Next / Previous -->
-<div class="container">
-    <div class="row mt-4">
-        <div class="col col-2">
-            <a href="{{ newerPage }}" class="{% if not hasNewerPage %}disabled{% endif %}">Newer</a>
-        </div>
-        <div class="col col-2">
-            <a href="{{ olderPage }}" class="{% if not hasOlderPage %}disabled{% endif %}">Older</a>
-        </div>
-        <div class="col">
-        </div>
-    </div>
-</div>
+{% include "paging-stencil.html" %}
 
 <!-- Footer -->
 {% include "footer-stencil.html" %}
