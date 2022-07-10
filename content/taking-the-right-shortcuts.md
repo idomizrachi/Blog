@@ -1,35 +1,48 @@
-title: Taking the right shortcuts
+title: Xcode keyboard shortcuts
 
-subtitle: How I improved productivity by customizing few keyboard shortcuts  
+subtitle: The keyboard shortcuts I use to increase productivity
 
-tags: Xcode, Tip
+tags: Xcode
 
 date: 2022-07-07
 
 ---
 
-# Taking the right shortcuts
+After years of using Xcode, one day not too long ago I decided that from now on
+I will only do debugging in Xcode using keyboard shortcuts, sorry dear mouse, it is
+not personal but moving you around and clicking takes too much time.
 
-Oh Xcode, we love you, we hate you, and sometimes we just don't have much choice.
+The main keyboard shortcuts that were chosen are:
 
-Given the fact that we spent most of our time using it, lets try to increase our productivity as much as possible.
+Step Over: `CMD` + `SHIFT` + `A`
 
-The keyboard shortcuts I used most are Debugging related:
+Step Into: `CMD` + `SHIFT` + `S`
 
-- Step Over - CMD + SHIFT + A 
-- Step Into - CMD + SHIFT + S
-- Step Out - CMD + SHIFT + D
-- Pause / Continue - CMD + SHIFT + X
+Step Out: `CMD` + `SHIFT` + `D`
 
-All debug related keys were select so they are clustered at the left side of the keyboard, making them easy to press.
+Pause / Continue: `CMD` + `SHIFT` + `X`
 
-And now I can debug without having to use my mouse.
+The main decision I made about the key selection was that it will be easy to press when having to repeat using it over and over again.
 
-Sounds like a small change, but I find help me a lot.
+After a successful pilot of debugging using keyboard shortcuts with Xcode, I defined that same keyboard shortcut in all IDEs that I use:
 
+- Visual Studio Code
+- IntelliJ IDEA
 
+Very short after I started to use these keyboard shortcuts debugging has become more fun, or some might say less pain.
 
+<br >
 
+#### Now that we learned that keyboard shortcuts are fun.
 
+Lets review some more options.
 
+Delete Line: `CMD` + `G`
 
+Show file in project structure: `CMD` + `SHIFT` + `R`
+
+Open Quickly: `CMD` + `SHIFT` + `O`
+
+<br >
+You don't have the make the same keyboard shortcut selections that I did, but just try to notice
+how you keyboard vs. mouse interrupts your workflow, but you can improve it by using the mouse a little less.

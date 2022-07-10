@@ -24,6 +24,7 @@
 
 article > p {
     margin-bottom: 1px;
+    line-height: 2;
 }
 
 a.disabled {

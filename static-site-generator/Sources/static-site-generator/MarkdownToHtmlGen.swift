@@ -256,9 +256,12 @@ struct MarkdownToHtmlGen: MarkupWalker {
      */
     mutating func visitInlineCode(_ inlineCode: InlineCode) {
 //        print("inline code:\n\(inlineCode.plainText)")
+        var code = inlineCode.plainText
+        let from = code.index(code.startIndex, offsetBy: 1)
+        let to = code.index(code.endIndex, offsetBy: -2)
+        code = String(code[from...to])
         html.append("""
-        <pre><code class="language-swift highlighter-rouge">\(inlineCode.plainText)</code></pre>
-        
+        <code class="language-swift highlighter-rouge">\(code)</code>
         """)
     }
 
