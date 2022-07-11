@@ -16,10 +16,13 @@ struct MainRunner {
         
         Greeting.run()
         do {
+            print("Creating build folder")
             try FileManager.default.createDirectory(at: URL(fileURLWithPath: outputPath), withIntermediateDirectories: true)
+            print("Creating build/style folder")
             try FileManager.default.createDirectory(at: URL(fileURLWithPath: outputCssPath), withIntermediateDirectories: true)
+            print("Creating build/images folder")
             try FileManager.default.createDirectory(at: URL(fileURLWithPath: outputImagesPath), withIntermediateDirectories: true)
-        } catch {            
+        } catch {
         }
         print("Parsing blog posts")
         let parsingResult = try BlogPostsBuilder().run(searchPath: markdownFilesSearchPath, outputPath: outputPath, templatesPath: templateFilesSearchPath)
@@ -28,13 +31,13 @@ struct MainRunner {
         let sortedMetadata = sortPostsMetadata(metadata: parsingResult.filesMetadata)
         print("Sorting blog posts - finished")
         print("Creating index page")
-        try IndexPagesBuilder(metadata: sortedMetadata, templatesPath: templateFilesSearchPath, outputPath: outputPath, postsPerPage: 4).run() //extract 4 to configuration
-        print("Creating index page - finished")
-        TagsPageBuilder().run()
-        AboutPageBuilder().run()
-        // Run CopyResources for each resource folder - css / images / etc
-        try CopyResources(templatesResourcesPath: templateCssPath, buildPath: outputCssPath).run()
-        try CopyResources(templatesResourcesPath: templateImagesPath, buildPath: outputImagesPath).run()
+//        try IndexPagesBuilder(metadata: sortedMetadata, templatesPath: templateFilesSearchPath, outputPath: outputPath, postsPerPage: 4).run() //extract 4 to configuration
+//        print("Creating index page - finished")
+//        TagsPageBuilder().run()
+//        AboutPageBuilder().run()
+//        // Run CopyResources for each resource folder - css / images / etc
+//        try CopyResources(templatesResourcesPath: templateCssPath, buildPath: outputCssPath).run()
+//        try CopyResources(templatesResourcesPath: templateImagesPath, buildPath: outputImagesPath).run()
                         
     }
     
