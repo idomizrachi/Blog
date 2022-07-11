@@ -74,6 +74,7 @@ struct BlogPostsBuilder {
     
     private func buildPostPage(templatesPath: String, metadata: Metadata, markdownPostHtml: String, outputFile: String) throws {
         let environment = Environment(loader: FileSystemLoader(paths: [Path(templatesPath)]))
+        print("Will try to load template: \(templatesPath)/post-stencil.html")
         let postTemplate = try environment.loadTemplate(name: templatesPath + "/post-stencil.html")
         let context: [String: Any] = [
             "title": metadata.title ?? "",
@@ -81,10 +82,12 @@ struct BlogPostsBuilder {
             "tags": metadata.tags,
             "post": markdownPostHtml
         ]
+        print("Generating blog post")
         let generatedPostHtml = try postTemplate.render(context)
         guard let data = generatedPostHtml.data(using: .utf8) else {
             throw NSError(domain: "StringToDataError", code: 0, userInfo: nil)
         }
+        print("Writing to file \(outputFile)")
         try data.write(to: URL(fileURLWithPath: outputFile))
         print("Generated post at: \(outputFile)")
     }
