@@ -20,27 +20,29 @@ struct IndexPagesBuilder {
     
     func run() throws {
         let environment = Environment(loader: FileSystemLoader(paths: [Path(templatesPath)]))
+        print("Loading template \(templatesPath)/index-stencil.html")
         let template = try environment.loadTemplate(name: templatesPath + "/index-stencil.html")
+        buildIndexPage(template: template, currentPagePosts: metadata, currentIndexPage: 0, numberOfIndexPages: 1)
         
-        var currentPagePosts: [FileMetadata] = []
-        let numberOfIndexPages = metadata.count / postsPerPage + 1
-        print("Number of index pages: \(numberOfIndexPages)")
-        for postIndex in 0..<metadata.count {
-            let currentIndexPage = postIndex / postsPerPage
-            if postIndex % postsPerPage == 0 {
-                print("Generating index page \(currentIndexPage)")
-                if currentPagePosts.isEmpty == false {
-                    try buildIndexPage(template: template, currentPagePosts: currentPagePosts, currentIndexPage: currentIndexPage, numberOfIndexPages: numberOfIndexPages)
-                }
-                currentPagePosts.removeAll()
-            }
-            print("Update index page \(currentIndexPage) with post \(postIndex)")
-            currentPagePosts.append(metadata[postIndex])
-        }
-        print("Generate last page \(currentPagePosts.count)")
-        if currentPagePosts.isEmpty == false {
-            try buildIndexPage(template: template, currentPagePosts: currentPagePosts, currentIndexPage: numberOfIndexPages, numberOfIndexPages: numberOfIndexPages)
-        }
+//        var currentPagePosts: [FileMetadata] = []
+//        let numberOfIndexPages = metadata.count / postsPerPage + 1
+//        print("Number of index pages: \(numberOfIndexPages)")
+//        for postIndex in 0..<metadata.count {
+//            let currentIndexPage = postIndex / postsPerPage
+//            if postIndex % postsPerPage == 0 {
+//                print("Generating index page \(currentIndexPage)")
+//                if currentPagePosts.isEmpty == false {
+//                    try buildIndexPage(template: template, currentPagePosts: currentPagePosts, currentIndexPage: currentIndexPage, numberOfIndexPages: numberOfIndexPages)
+//                }
+//                currentPagePosts.removeAll()
+//            }
+//            print("Update index page \(currentIndexPage) with post \(postIndex)")
+//            currentPagePosts.append(metadata[postIndex])
+//        }
+//        print("Generate last page \(currentPagePosts.count)")
+//        if currentPagePosts.isEmpty == false {
+//            try buildIndexPage(template: template, currentPagePosts: currentPagePosts, currentIndexPage: numberOfIndexPages, numberOfIndexPages: numberOfIndexPages)
+//        }
         
     }
     
