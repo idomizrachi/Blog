@@ -3,6 +3,11 @@
     font-weight: bolder;
 }
 
+.blog-post-title a {
+    color: inherit;
+    text-decoration: none; /* no underline */
+}
+
 .blog-post-date {
     font-size: 1.1rem;
     font-style: italic;
@@ -19,6 +24,7 @@
 
 article > p {
     margin-bottom: 1px;
+    line-height: 2;
 }
 
 a.disabled {
