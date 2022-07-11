@@ -15,6 +15,12 @@ struct MainRunner {
         let outputImagesPath = outputPath + "/images"
         
         Greeting.run()
+        do {
+            try FileManager.default.createDirectory(at: URL(fileURLWithPath: outputPath), withIntermediateDirectories: true)
+            try FileManager.default.createDirectory(at: URL(fileURLWithPath: outputCssPath), withIntermediateDirectories: true)
+            try FileManager.default.createDirectory(at: URL(fileURLWithPath: outputImagesPath), withIntermediateDirectories: true)
+        } catch {            
+        }
         print("Parsing blog posts")
         let parsingResult = try BlogPostsBuilder().run(searchPath: markdownFilesSearchPath, outputPath: outputPath, templatesPath: templateFilesSearchPath)
         print("Parsing blog posts - finished")
