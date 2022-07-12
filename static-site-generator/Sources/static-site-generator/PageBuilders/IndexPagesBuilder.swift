@@ -22,7 +22,7 @@ struct IndexPagesBuilder {
         let environment = Environment(loader: FileSystemLoader(paths: [Path(templatesPath)]))
         print("Loading template \(templatesPath)/index-stencil.html")
         let template = try environment.loadTemplate(name: templatesPath + "/index-stencil.html")
-        try buildIndexPage(template: template, currentPagePosts: metadata, currentIndexPage: 0, numberOfIndexPages: 1)
+//        try buildIndexPage(template: template, currentPagePosts: metadata, currentIndexPage: 0, numberOfIndexPages: 1)
         
 //        var currentPagePosts: [FileMetadata] = []
 //        let numberOfIndexPages = metadata.count / postsPerPage + 1
