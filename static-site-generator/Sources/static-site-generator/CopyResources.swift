@@ -12,12 +12,16 @@ struct CopyResources {
     let buildPath: String
     
     func run() throws {
+        do {
+            FileManager.default.createDirectory(at: URL(fileURLWithPath: buildPath), withIntermediateDirectories: true)
+        } catch {            
+        }
         let resouceFiles = try FileManager.default.contentsOfDirectory(atPath: templatesResourcesPath)
         try resouceFiles.forEach { resourceFile in
             let buildResourceFile = buildPath + "/" + resourceFile
             if FileManager.default.fileExists(atPath: buildResourceFile) {
                 try FileManager.default.removeItem(atPath: buildResourceFile)
-            }            
+            }
             try FileManager.default.copyItem(atPath: templatesResourcesPath + "/" +  resourceFile, toPath: buildResourceFile)
         }
     }
