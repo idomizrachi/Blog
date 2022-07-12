@@ -31,7 +31,7 @@ struct MainRunner {
 //        let sortedMetadata = sortPostsMetadata(metadata: parsingResult.filesMetadata)
         print("Sorting blog posts - finished")
         print("Creating index page")
-//        try IndexPagesBuilder(metadata: sortedMetadata, templatesPath: templateFilesSearchPath, outputPath: outputPath, postsPerPage: 4).run() //extract 4 to configuration
+        try IndexPagesBuilder(metadata: sortedMetadata, templatesPath: templateFilesSearchPath, outputPath: outputPath, postsPerPage: 4).run() //extract 4 to configuration
 //        print("Creating index page - finished")
 //        TagsPageBuilder().run()
 //        AboutPageBuilder().run()
