@@ -36,8 +36,8 @@ struct MainRunner {
 //        TagsPageBuilder().run()
 //        AboutPageBuilder().run()
         // Run CopyResources for each resource folder - css / images / etc
-//        print("Copying css from \(templateCssPath) to \(outputCssPath)")
-//        try CopyResources(templatesResourcesPath: templateCssPath, buildPath: outputCssPath).run()
+        print("Copying css from \(templateCssPath) to \(outputCssPath)")
+        try CopyResources(templatesResourcesPath: templateCssPath, buildPath: outputCssPath).run()
 //        print("Copying images from \(templateImagesPath) to \(outputImagesPath)")
 //        try CopyResources(templatesResourcesPath: templateImagesPath, buildPath: outputImagesPath).run()
                         

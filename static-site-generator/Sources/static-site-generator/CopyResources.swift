@@ -17,6 +17,7 @@ struct CopyResources {
             try FileManager.default.createDirectory(at: URL(fileURLWithPath: buildPath), withIntermediateDirectories: true)
         } catch {
         }
+        print("Scanning \(templatesResourcesPath)")
         let resouceFiles = try FileManager.default.contentsOfDirectory(atPath: templatesResourcesPath)
         try resouceFiles.forEach { resourceFile in
             let buildResourceFile = buildPath + "/" + resourceFile
