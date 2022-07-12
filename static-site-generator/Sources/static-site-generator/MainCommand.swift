@@ -35,11 +35,11 @@ struct MainRunner {
 //        print("Creating index page - finished")
 //        TagsPageBuilder().run()
 //        AboutPageBuilder().run()
-//        // Run CopyResources for each resource folder - css / images / etc
-//        print("Copyinh css from \(templateCssPath) to \(outputCssPath)")
-//        try CopyResources(templatesResourcesPath: templateCssPath, buildPath: outputCssPath).run()
-//        print("Copying images from \(templateImagesPath) to \(outputImagesPath)")
-//        try CopyResources(templatesResourcesPath: templateImagesPath, buildPath: outputImagesPath).run()
+        // Run CopyResources for each resource folder - css / images / etc
+        print("Copyinh css from \(templateCssPath) to \(outputCssPath)")
+        try CopyResources(templatesResourcesPath: templateCssPath, buildPath: outputCssPath).run()
+        print("Copying images from \(templateImagesPath) to \(outputImagesPath)")
+        try CopyResources(templatesResourcesPath: templateImagesPath, buildPath: outputImagesPath).run()
                         
     }
     
