@@ -26,12 +26,11 @@ The main decision I made about the key selection was that it will be easy to pre
 
 After a successful pilot of debugging using keyboard shortcuts with Xcode, I defined that same keyboard shortcut in all IDEs that I use:
 
-- Visual Studio Code
-- IntelliJ IDEA
+Visual Studio Code, IntelliJ IDEA and Android Studio. <br><br>
 
-Very short after I started to use these keyboard shortcuts debugging has become more fun, or some might say less pain.
+Very short after I started to use these keyboard shortcuts debugging has become more fun, or at least less pain.
 
-<br >
+<br>  
 
 #### Now that we learned that keyboard shortcuts are fun.
 
@@ -43,6 +42,6 @@ Show file in project structure: `CMD` + `SHIFT` + `R`
 
 Open Quickly: `CMD` + `SHIFT` + `O`
 
-<br >
+<br>
 You don't have the make the same keyboard shortcut selections that I did, but just try to notice
 how you keyboard vs. mouse interrupts your workflow, but you can improve it by using the mouse a little less.

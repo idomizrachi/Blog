@@ -22,7 +22,7 @@ struct IndexPagesBuilder {
         let environment = Environment(loader: FileSystemLoader(paths: [Path(templatesPath)]))
         print("Loading template \(templatesPath)/index-stencil.html")
         let template = try environment.loadTemplate(name: templatesPath + "/index-stencil.html")
-//        try buildIndexPage(template: template, currentPagePosts: metadata, currentIndexPage: 0, numberOfIndexPages: 1)
+        try buildIndexPage(template: template, currentPagePosts: metadata, currentIndexPage: 0, numberOfIndexPages: 1)
         
 //        var currentPagePosts: [FileMetadata] = []
 //        let numberOfIndexPages = metadata.count / postsPerPage + 1
@@ -58,27 +58,28 @@ struct IndexPagesBuilder {
         }
         print("currentIndexPage: \(currentIndexPage), numberOfIndexPages: \(numberOfIndexPages)")
         let newerPage: String
-        if currentIndexPage == 2 {
-            newerPage = "index.html"
-        } else {
-            newerPage = "index_\(currentIndexPage-1).html"
-        }
+//        if currentIndexPage == 2 {
+//            newerPage = "index.html"
+//        } else {
+//            newerPage = "index_\(currentIndexPage-1).html"
+//        }
         let olderPage: String = "index_\(currentIndexPage+1).html"
         let context: [String: Any] = [
             "posts": posts,
-            "hasNewerPage": currentIndexPage > 1,
-            "hasOlderPage": currentIndexPage < numberOfIndexPages,
-            "newerPage": newerPage,
-            "olderPage": olderPage
+            "hasNewerPage": false,
+            "hasOlderPage": false
+//            "newerPage": newerPage,
+//            "olderPage": olderPage
         ]
         let indexPageHtml = try template.render(context)
         let indexPageHtmlData = indexPageHtml.data(using: .utf8)!
         let outputFile: String
-        if currentIndexPage == 1 {
-            outputFile = "index.html"
-        } else {
-            outputFile = "index_\(currentIndexPage).html"
-        }
+//        if currentIndexPage == 1 {
+//            outputFile = "index.html"
+//        } else {
+//            outputFile = "index_\(currentIndexPage).html"
+//        }
+        outputFile = "index.html"
          
         if FileManager.default.fileExists(atPath: outputPath + "/" + outputFile) {
             try FileManager.default.removeItem(atPath: outputPath + "/" + outputFile)
