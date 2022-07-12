@@ -28,7 +28,7 @@ struct MainRunner {
         let parsingResult = try BlogPostsBuilder().run(searchPath: markdownFilesSearchPath, outputPath: outputPath, templatesPath: templateFilesSearchPath)
         print("Parsing blog posts - finished")
         print("Sorting blog posts")
-        let sortedMetadata = sortPostsMetadata(metadata: parsingResult.filesMetadata)
+//        let sortedMetadata = sortPostsMetadata(metadata: parsingResult.filesMetadata)
         print("Sorting blog posts - finished")
         print("Creating index page")
 //        try IndexPagesBuilder(metadata: sortedMetadata, templatesPath: templateFilesSearchPath, outputPath: outputPath, postsPerPage: 4).run() //extract 4 to configuration
@@ -36,10 +36,10 @@ struct MainRunner {
 //        TagsPageBuilder().run()
 //        AboutPageBuilder().run()
         // Run CopyResources for each resource folder - css / images / etc
-        print("Copyinh css from \(templateCssPath) to \(outputCssPath)")
-        try CopyResources(templatesResourcesPath: templateCssPath, buildPath: outputCssPath).run()
-        print("Copying images from \(templateImagesPath) to \(outputImagesPath)")
-        try CopyResources(templatesResourcesPath: templateImagesPath, buildPath: outputImagesPath).run()
+//        print("Copying css from \(templateCssPath) to \(outputCssPath)")
+//        try CopyResources(templatesResourcesPath: templateCssPath, buildPath: outputCssPath).run()
+//        print("Copying images from \(templateImagesPath) to \(outputImagesPath)")
+//        try CopyResources(templatesResourcesPath: templateImagesPath, buildPath: outputImagesPath).run()
                         
     }
     
